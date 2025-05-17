@@ -1,1 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Cumpleaños Antonia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+        }
+        
+        .bg-particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 8%),
+                radial-gradient(circle at 75% 60%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 5%),
+                radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 10%);
+            animation: backgroundShimmer 15s infinite alternate;
+        }
+        
+        .card {
+            width: 90%;
+            max-width: 500px; /* Reducido de 600px */
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 18px; /* Reducido de 20px */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            padding: 4% 4% 6% 4%; /* Reducido de 5% 5% 8% 5% */
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1.5s ease-in-out;
+            z-index: 3;
+            backdrop-filter: blur(5px);
+            border: 5px solid #ff78a3; /* Reducido de 6px */
+            margin: 15px auto; /* Reducido de 20px */
+        }
+        
+        .card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSIjZmY3OGEzIiBvcGFjaXR5PSIwLjEiIGQ9Ik01MCwwIEw2MCwyNSBMODcsMjUgTDY1LDQwIEw3NSw2NSBMNTM1MCBMNDAsNjUgTDQ1LDQwIEx4LDI1IEw0NSwyNSBaIi8+PC9zdmc+") repeat;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .romantic-symbols {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+        
+        .love-symbol {
+            position: absolute;
+            color: #ff78a3;
+            opacity: 0.1;
+            font-size: 20px; /* Reducido de 24px */
+            z-index: 0;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 95%; /* Reducido de 100% */
+            margin: 20px auto; /* Reducido de 30px */
+            border-radius: 12px; /* Reducido de 15px */
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            aspect-ratio: 16/9;
+            border: 2px solid rgba(255, 120, 163, 0.5); /* Reducido de 3px */
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px; /* Reducido de 12px */
+            transition: transform 0.3s ease;
+        }
+        
+        .video-container:hover iframe {
+            transform: scale(1.02);
+        }
+        
+        .card::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            right: -50px;
+            bottom: -50px;
+            background: radial-gradient(circle at center, transparent 0%, transparent 70%, rgba(255, 192, 203, 0.4) 100%);
+            z-index: -1;
+            animation: pulse 3s infinite alternate;
+        }
+        
+        h1 {
+            color: #d23b94;
+            margin-bottom: 15px; /* Reducido de 20px */
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem); /* Reducido de clamp(1.8rem, 5vw, 2.5rem) */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            color: #ff78a3;
+            font-size: clamp(0.9rem, 2.2vw, 1.2rem); /* Reducido de clamp(1rem, 2.5vw, 1.3rem) */
+            font-style: italic;
+            margin-bottom: 20px; /* Reducido de 25px */
+        }
+        
+        .message {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem); /* Reducido de clamp(1rem, 3vw, 1.2rem) */
+            color: #444;
+            line-height: 1.5; /* Reducido de 1.6 */
+            margin-bottom: 25px; /* Reducido de 30px */
+            position: relative;
+            z-index: 5;
+        }
+        
+        .romantic-quote {
+            font-style: italic;
+            color: #d23b94;
+            margin: 20px auto; /* Reducido de 25px */
+            padding: 12px; /* Reducido de 15px */
+            position: relative;
+            max-width: 90%;
+            font-size: clamp(0.85rem, 2.2vw, 1rem); /* Reducido de clamp(0.9rem, 2.5vw, 1.1rem) */
+        }
+        
+        .romantic-quote::before,
+        .romantic-quote::after {
+            content: '"';
+            font-size: 40px; /* Reducido de 50px */
+            position: absolute;
+            color: rgba(210, 59, 148, 0.2);
+            font-family: Georgia, serif;
+        }
+        
+        .romantic-quote::before {
+            top: -15px; /* Reducido de -20px */
+            left: -12px; /* Reducido de -15px */
+        }
+        
+        .romantic-quote::after {
+            bottom: -30px; /* Reducido de -40px */
+            right: -12px; /* Reducido de -15px */
+        }
+        
+        .signature {
+            font-family: 'Brush Script MT', cursive;
+            font-size: clamp(1.4rem, 3.5vw, 1.8rem); /* Reducido de clamp(1.5rem, 4vw, 2rem) */
+            color: #d23b94;
+            margin-top: 25px; /* Reducido de 30px */
+        }
+        
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .heart {
+            position: absolute;
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjZmY3OGEzIiBkPSJNNDczLjk4NCw3NC4yNDhjLTY1LjIxMy02NS4yMzctMTcxLjA3OS02NS4yNTUtMjM2LjMxNSwwLjA0NUwyMTYsMTk1Ljk2MiBMMTk0LjMzLDc0LjI5M2MtNjUuMjE3LTY1LjI4Ni0xNzEuMDctNjUuMzA0LTIzNi4zMDMsMC4wNDJDLTEwNi43NSwxNDIuNjAyLTEwNi42NjQsMjQ5LjE5OSw3NS42ODQsMzMxLjUyMiBMMjE2LDQ1NmwxNDAuMzE2LTEyNC40NzhDNDI0LjY3NSwyNDkuMTk5LDU0Mi4yNSwxNDIuNjAyLDQ3My45ODQsNzQuMjQ4eiIvPjwvc3ZnPg==");
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 18px; /* Reducido de 20px */
+            height: 18px; /* Reducido de 20px */
+            opacity: 0;
+            animation: fall 6s ease-in infinite;
+            z-index: -1;
+        }
+        
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff78a3, #d23b94);
+            color: white;
+            padding: 10px 25px; /* Reducido de 12px 30px */
+            border-radius: 25px; /* Reducido de 30px */
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px; /* Reducido de 20px */
+            box-shadow: 0 3px 12px rgba(210, 59, 148, 0.4); /* Reducido de 0 4px 15px */
+            transition: all 0.3s ease;
+        }
+        
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(210, 59, 148, 0.6); /* Reducido de 0 8px 20px */
+            background: linear-gradient(135deg, #ff93b8, #e64da6);
+        }
+        
+        .petal {
+            position: absolute;
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 25px; /* Reducido de 30px */
+            height: 12px; /* Reducido de 15px */
+            opacity: 0.8;
+            z-index: 1;
+            animation: floatPetal 12s ease-in-out infinite;
+        }
+        
+        .petal1 {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgNTAiPjxwYXRoIGZpbGw9IiNmZmM0ZDkiIGQ9Ik05OS4zLDIwLjJjLTUuOC0xNS45LTI0LjMtMjcuMS00OS4zLTI3LjFTNi41LDQuMywwLjcsMjAuMmMtMS42LDQuNCwxLjMsOS44LDYuOCwxMi4yIGM3LjMsMy4yLDE3LjcsMy40LDI3LjUsMS40YzkuOC0yLDI0LjEtOS45LDQxLjgtMi42QzgzLjksMzQsOTUuMSwyOS4xLDk5LjMsMjAuMnoiLz48L3N2Zz4=");
+        }
+        
+        .petal2 {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgNTAiPjxwYXRoIGZpbGw9IiNmZjk0YjgiIGQ9Ik05OS4zLDIwLjJjLTUuOC0xNS45LTI0LjMtMjcuMS00OS4zLTI3LjFTNi41LDQuMywwLjcsMjAuMmMtMS42LDQuNCwxLjMsOS44LDYuOCwxMi4yIGM3LjMsMy4yLDE3LjcsMy40LDI3LjUsMS40YzkuOC0yLDI0LjEtOS45LDQxLjgtMi42QzgzLjksMzQsOTUuMSwyOS4xLDk5LjMsMjAuMnoiLz48L3N2Zz4=");
+        }
+        
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .star {
+            position: absolute;
+            width: 3px; /* Reducido de 4px */
+            height: 3px; /* Reducido de 4px */
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 4s infinite both;
+        }
+        
+        /* Decoración de borde romántico */
+        .romantic-border {
+            position: absolute;
+            width: calc(100% - 10px); /* Reducido de calc(100% - 12px) */
+            height: calc(100% - 10px); /* Reducido de calc(100% - 12px) */
+            top: 5px; /* Reducido de 6px */
+            left: 5px; /* Reducido de 6px */
+            border: 2px dashed rgba(255, 120, 163, 0.3);
+            border-radius: 12px; /* Reducido de 14px */
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .corner-heart {
+            position: absolute;
+            width: 25px; /* Reducido de 30px */
+            height: 25px; /* Reducido de 30px */
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjZmY3OGEzIiBkPSJNNDczLjk4NCw3NC4yNDhjLTY1LjIxMy02NS4yMzctMTcxLjA3OS02NS4yNTUtMjM2LjMxNSwwLjA0NUwyMTYsMTk1Ljk2MiBMMTk0LjMzLDc0LjI5M2MtNjUuMjE3LTY1LjI4Ni0xNzEuMDctNjUuMzA0LTIzNi4zMDMsMC4wNDJDLTEwNi43NSwxNDIuNjAyLTEwNi42NjQsMjQ5LjE5OSw3NS42ODQsMzMxLjUyMiBMMjE2LDQ1NmwxNDAuMzE2LTEyNC40NzhDNDI0LjY3NSwyNDkuMTk5LDU0Mi4yNSwxNDIuNjAyLDQ3My45ODQsNzQuMjQ4eiIvPjwvc3ZnPg==");
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.6;
+            z-index: 2;
+        }
+        
+        /* Divider romántico */
+        .romantic-divider {
+            position: relative;
+            height: 15px; /* Reducido de 20px */
+            margin: 25px 0; /* Reducido de 30px */
+            overflow: visible;
+            text-align: center;
+        }
+        
+        .romantic-divider::before {
+            content: "";
+            height: 2px;
+            width: 40%;
+            background: linear-gradient(to right, transparent, rgba(255, 120, 163, 0.5));
+            position: absolute;
+            top: 50%;
+            left: 0;
+        }
+        
+        .romantic-divider::after {
+            content: "";
+            height: 2px;
+            width: 40%;
+            background: linear-gradient(to left, transparent, rgba(255, 120, 163, 0.5));
+            position: absolute;
+            top: 50%;
+            right: 0;
+        }
+        
+        .divider-heart {
+            display: inline-block;
+            width: 25px; /* Reducido de 30px */
+            height: 25px; /* Reducido de 30px */
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjZmY3OGEzIiBkPSJNNDczLjk4NCw3NC4yNDhjLTY1LjIxMy02NS4yMzctMTcxLjA3OS02NS4yNTUtMjM2LjMxNSwwLjA0NUwyMTYsMTk1Ljk2MiBMMTk0LjMzLDc0LjI5M2MtNjUuMjE3LTY1LjI4Ni0xNzEuMDctNjUuMzA0LTIzNi4zMDMsMC4wNDJDLTEwNi43NSwxNDIuNjAyLTEwNi42NjQsMjQ5LjE5OSw3NS42ODQsMzMxLjUyMiBMMjE2LDQ1NmwxNDAuMzE2LTEyNC40NzhDNDI0LjY3NSwyNDkuMTk5LDU0Mi4yNSwxNDIuNjAyLDQ3My45ODQsNzQuMjQ4eiIvPjwvc3ZnPg==");
+            background-size: contain;
+            background-repeat: no-repeat;
+            position: relative;
+            top: -5px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) translateX(var(--x)) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px)) translateX(calc(var(--x) + var(--drift))) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes floatPetal {
+            0% {
+                transform: translateY(-50px) translateX(var(--startX)) rotate(var(--startRotate));
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(calc(100vh + 50px)) translateX(calc(var(--startX) + var(--driftX))) rotate(calc(var(--startRotate) + var(--endRotate)));
+                opacity: 0;
+            }
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        @keyframes backgroundShimmer {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-particles"></div>
+    <div class="stars" id="stars"></div>
+    <div class="hearts" id="hearts"></div>
+    <div class="petals" id="petals"></div>
+    
+    <div class="card">
+        <div class="romantic-border"></div>
+        <div class="corner-heart" style="top: 8px; left: 8px;"></div>
+        <div class="corner-heart" style="top: 8px; right: 8px;"></div>
+        <div class="corner-heart" style="bottom: 8px; left: 8px;"></div>
+        <div class="corner-heart" style="bottom: 8px; right: 8px;"></div>
+        
+        <div class="romantic-symbols" id="romantic-symbols"></div>
+        
+        <h1>Feliz Cumpleaños Antonia</h1>
+        
+        <div class="message">
+            <p>Ola Antonia, cosita mañosa, hoy es tu día, y quiero que sepas que eres una persona muy especial para mí. Nuestra amistad es un regalo que valoro mucho, y me siento afortunado de tenerte en mi vida.
+Gracias por ser una amiga tan increíble. Te quiero mucho. Feliz cum</p>
+           
+        </div>
+        
+        <div class="romantic-divider">
+            <span class="divider-heart"></span>
+        </div>
+        
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/7bG1OjcgBYs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        
+        <div class="romantic-divider">
+            <span class="divider-heart"></span>
+        </div>
+        
+        <a href="#" class="button">Te quiero mucho ❤️</a>
+        <div class="signature"></div>
+    </div>
 
+    <script>
+        // Crear corazones con mejor rendimiento usando requestAnimationFrame
+        const heartsContainer = document.getElementById('hearts');
+        
+        const createHearts = () => {
+            heartsContainer.innerHTML = '';
+            const numberOfHearts = window.innerWidth < 768 ? 15 : 25; // Reducido de 20 : 35
+            
+            for (let i = 0; i < numberOfHearts; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.width = Math.random() * 12 + 8 + 'px'; // Reducido de 15 + 10
+                    heart.style.height = Math.random() * 12 + 8 + 'px'; // Reducido de 15 + 10
+                    heart.style.animationDelay = Math.random() * 5 + 's';
+                    heart.style.animationDuration = Math.random() * 3 + 5 + 's';
+                    heart.style.setProperty('--x', Math.random() * 100 - 50 + 'px');
+                    heart.style.setProperty('--drift', Math.random() * 50 - 25 + 'px');
+                    heartsContainer.appendChild(heart);
+                }, i * 200);
+            }
+        };
+        
+        // Crear pétalos optimizados
+        const petalsContainer = document.getElementById('petals');
+        
+        const createPetals = () => {
+            petalsContainer.innerHTML = '';
+            const numberOfPetals = window.innerWidth < 768 ? 8 : 15; // Reducido de 10 : 20
+            
+            for (let i = 0; i < numberOfPetals; i++) {
+                setTimeout(() => {
+                    const petal = document.createElement('div');
+                    const petalType = Math.random() > 0.5 ? 'petal1' : 'petal2';
+                    petal.classList.add('petal', petalType);
+                    petal.style.left = Math.random() * 100 + '%';
+                    petal.style.opacity = Math.random() * 0.5 + 0.3;
+                    petal.style.animationDelay = Math.random() * 10 + 's';
+                    petal.style.animationDuration = Math.random() * 10 + 10 + 's';
+                    petal.style.setProperty('--startX', Math.random() * 100 - 50 + 'px');
+                    petal.style.setProperty('--driftX', Math.random() * 200 - 100 + 'px');
+                    petal.style.setProperty('--startRotate', Math.random() * 360 + 'deg');
+                    petal.style.setProperty('--endRotate', Math.random() * 720 - 360 + 'deg');
+                    petalsContainer.appendChild(petal);
+                }, i * 300);
+            }
+        };
+        
+        // Crear estrellas optimizadas
+        const starsContainer = document.getElementById('stars');
+        
+        const createStars = () => {
+            starsContainer.innerHTML = '';
+            const numberOfStars = window.innerWidth < 768 ? 25 : 40; // Reducido de 30 : 50
+            const fragment = document.createDocumentFragment();
+            
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 2 + 1 + 'px'; // Reducido de 3 + 1
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 4 + 's';
+                fragment.appendChild(star);
+            }
+            
+            starsContainer.appendChild(fragment);
+        };
+        
+        // Crear símbolos románticos dentro de la tarjeta
+        const romanticSymbolsContainer = document.getElementById('romantic-symbols');
+        
+        const createRomanticSymbols = () => {
+            romanticSymbolsContainer.innerHTML = '';
+            const symbols = ['♥', '♡', '❤', '💕', '💘', '💖'];
+            const numberOfSymbols = 20; // Reducido de 25
+            
+            for (let i = 0; i < numberOfSymbols; i++) {
+                const symbol = document.createElement('div');
+                symbol.classList.add('love-symbol');
+                symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                symbol.style.left = Math.random() * 100 + '%';
+                symbol.style.top = Math.random() * 100 + '%';
+                symbol.style.transform = `rotate(${Math.random() * 360}deg)`;
+                symbol.style.fontSize = `${Math.random() * 14 + 10}px`; // Reducido de 16 + 12
+                romanticSymbolsContainer.appendChild(symbol);
+            }
+        };
+        
+        // Efecto de brillo para el botón
+        const button = document.querySelector('.button');
+        button.addEventListener('mouseover', function() {
+            this.style.textShadow = '0 0 10px rgba(255,255,255,0.8)';
+        });
+        button.addEventListener('mouseout', function() {
+            this.style.textShadow = 'none';
+        });
+        
+        // Inicializar todos los elementos
+        document.addEventListener('DOMContentLoaded', () => {
+            createHearts();
+            createPetals();
+            createStars();
+            createRomanticSymbols();
+        });
+        
+        // Optimizar el manejo de eventos resize con debounce
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                createHearts();
+                createPetals();
+                createStars();
+                createRomanticSymbols();
+            }, 250);
+        });
+    </script>
+</body>
+</html>
